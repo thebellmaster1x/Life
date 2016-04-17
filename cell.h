@@ -2,14 +2,13 @@
 enum STATE { OFF = 0, ON };
 #endif
 
-void initializeCells (int cells[][], const int maxRows, const int maxColumns);
+void initializeCells (const int maxRows, const int maxColumns, int cells[maxRows][maxColumns]);
 
-void printCells (const int previousCells[][], const int currentCells[][], const int maxRows,
-    const int maxColumns, const WINDOW scr);
+void printCells (const int maxRows, const int maxColumns, int previousCells[maxRows][maxColumns],
+    int currentCells[maxRows][maxColumns], WINDOW * scr);
 
-int evaluateNeighbors (const int cells[][], const int currentRow, const int currentColumn,
-    const int maxRows, const int maxColumns);
+int evaluateNeighbors (const int maxRows, const int maxColumns, int cells[maxRows][maxColumns],
+    const int currentRow, const int currentColumn);
 
-void updateCells (int previousCells[][], int currentCells[][],  const int maxRows,
-    const int maxColumns);
-
+void updateCells (const int maxRows, const int maxColumns, int previousCells[maxRows][maxColumns],
+    int currentCells[maxRows][maxColumns]);

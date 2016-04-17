@@ -6,7 +6,7 @@
 
 enum STATE { OFF = 0, ON };
 
-void initializeCells (int cells[][], const int maxRows, const int maxColumns) {
+void initializeCells (const int maxRows, const int maxColumns, int cells[maxRows][maxColumns]) {
 
     srand(time(0));
 
@@ -20,8 +20,8 @@ void initializeCells (int cells[][], const int maxRows, const int maxColumns) {
 
 }
 
-void printCells (const int previousCells[][], const int currentCells[][], const int maxRows,
-    const int maxColumns, const WINDOW scr) {
+void printCells (const int maxRows, const int maxColumns, int previousCells[maxRows][maxColumns],
+    int currentCells[maxRows][maxColumns], WINDOW * scr) {
 
     for (size_t x = 0; x < maxColumns; x++) {
         for (size_t y = 0; y < maxRows; y++) {
@@ -39,8 +39,8 @@ void printCells (const int previousCells[][], const int currentCells[][], const 
 
 }
 
-int evaluateNeighbors (const int cells[][], const int currentRow, const int currentColumn,
-    const int maxRows, const int maxColumns) {
+int evaluateNeighbors (const int maxRows, const int maxColumns, int cells[maxRows][maxColumns],
+    const int currentRow, const int currentColumn) {
 
     int neighbors;
     int evaluationRow, evaluationColumn;
@@ -71,8 +71,8 @@ int evaluateNeighbors (const int cells[][], const int currentRow, const int curr
 
 }
 
-void updateCells (int previousCells[][], int currentCells[][],  const int maxRows,
-    const int maxColumns) {
+void updateCells (const int maxRows, const int maxColumns, int previousCells[maxRows][maxColumns],
+    int currentCells[maxRows][maxColumns]) {
 
     int cellNeighbors;
 
@@ -87,7 +87,7 @@ void updateCells (int previousCells[][], int currentCells[][],  const int maxRow
     for (size_t y = 0; y < maxRows; y++) {
         for (size_t x = 0; x < maxColumns; x++) {
 
-            cellNeighbors = evaluateNeighbors(previousCells[y][x]);
+            cellNeighbors = evaluateNeighbors(maxRows, maxColumns, previousCells, y, x);
 
             if (previousCells[y][x] == OFF) {
 

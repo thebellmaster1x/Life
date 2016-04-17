@@ -4,8 +4,6 @@
 #define CELLROW 25
 #define CELLCOL 80
 
-enum STATE { OFF = 0, ON };
-
 int main (void) {
 
     int maxY, maxX;
@@ -13,14 +11,14 @@ int main (void) {
     initscr();
     cbreak();
     noecho();
-    keypad();
+    keypad(stdscr, TRUE);
 
-    getmaxyx(maxY, maxX);
+    getmaxyx(stdscr, maxY, maxX);
 
     int currentCells[CELLROW][CELLCOL];    /* limit size for now */
     int previousCells[CELLROW][CELLCOL];
 
-    initializeCells(currentCells, CELLROW, CELLCOL);    /* randomize starting field */ 
+    initializeCells(CELLROW, CELLCOL, currentCells);    /* randomize starting field */ 
 
     for (size_t y = 0; y < CELLROW; y++) {              /* zero out cell buffer */
         for (size_t x = 0; x < CELLCOL; x++) {
@@ -28,11 +26,11 @@ int main (void) {
         }
     }
 
-    printCells(previousCells, currentCells, CELLROW, CELLCOL, stdscr);          /* print starting field */
+    printCells(CELLROW, CELLCOL, previousCells, currentCells, stdscr);          /* print starting field */
 
     while(1) {                                                                  /* main automaton loop */
-        updateCells(previousCells, currentCells, CELLROW, CELLCOL, stdscr);
-        printCells(previousCells, currentCells, CELLROW, CELLCOL);
+        updateCells(CELLROW, CELLCOL, previousCells, currentCells);
+        printCells(CELLROW, CELLCOL, previousCells, currentCells, stdscr);
         getch();
         refresh();
     }
