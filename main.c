@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include "cell.h"
 
 #define CELLROW 25
 #define CELLCOL 80
