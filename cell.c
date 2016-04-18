@@ -2,7 +2,7 @@
 #include <time.h>
 #include <ncurses.h>
 
-#define INITIALDENSITY 8        /* initial random ON cells, lower = denser starting field */
+#define INITIALDENSITY 4        /* initial random ON cells, lower = denser starting field */
 
 enum STATE { OFF = 0, ON };
 
@@ -95,7 +95,7 @@ void updateCells (const int maxRows, const int maxColumns, int previousCells[max
                     currentCells[y][x] = ON;    /* birth condition */
                 }
 
-            } else {
+            } else if (previousCells[y][x] == ON) {
 
                 if (!(cellNeighbors == 2 || cellNeighbors == 3)) {      
                     currentCells[y][x] = OFF;   /* death condition */

@@ -29,13 +29,11 @@ int main (void) {
     printCells(CELLROW, CELLCOL, previousCells, currentCells, stdscr);          /* print starting field */
 
     while(1) {                                                                  /* main automaton loop */
+        getch();
         updateCells(CELLROW, CELLCOL, previousCells, currentCells);
         printCells(CELLROW, CELLCOL, previousCells, currentCells, stdscr);
-        getch();
         refresh();
     }
-
-    endwin();
 
     return 0;
 
