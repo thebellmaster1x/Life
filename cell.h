@@ -1,7 +1,3 @@
-#ifndef STATE
-enum STATE { OFF = 0, ON };
-#endif
-
 void initializeCells (const int maxRows, const int maxColumns, int cells[maxRows][maxColumns]);
 
 void printCells (const int maxRows, const int maxColumns, int previousCells[maxRows][maxColumns],

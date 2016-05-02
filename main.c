@@ -4,6 +4,9 @@
 #define CELLROW 25
 #define CELLCOL 80
 
+#define OFF 0
+#define ON 1
+
 int main (void) {
 
     int maxY, maxX;
@@ -12,6 +15,10 @@ int main (void) {
     cbreak();
     noecho();
     keypad(stdscr, TRUE);
+
+    start_color();              //TODO: remove
+    init_pair(1, COLOR_WHITE, COLOR_BLACK);
+    init_pair(2, COLOR_RED, COLOR_BLACK);
 
     getmaxyx(stdscr, maxY, maxX);
 
@@ -28,12 +35,16 @@ int main (void) {
 
     printCells(CELLROW, CELLCOL, previousCells, currentCells, stdscr);          /* print starting field */
 
-    while(1) {                                                                  /* main automaton loop */
+/*    while(1) {                                                                  /* main automaton loop *//*
         getch();
         updateCells(CELLROW, CELLCOL, previousCells, currentCells);
         printCells(CELLROW, CELLCOL, previousCells, currentCells, stdscr);
         refresh();
-    }
+    }*/
+
+    getch();
+
+    endwin();
 
     return 0;
 
