@@ -7,45 +7,38 @@
 #define OFF 0
 #define ON 1
 
-int main (void) {
+int main ( void ) {
 
-    int maxY, maxX;
+    initscr() ;
+    cbreak() ;
+    noecho() ;
+    keypad( stdscr, TRUE ) ;
 
-    initscr();
-    cbreak();
-    noecho();
-    keypad(stdscr, TRUE);
+    start_color() ;
+    init_pair( 1, COLOR_WHITE, COLOR_BLACK ) ;
+    init_pair( 2, COLOR_RED, COLOR_BLACK ) ;
 
-    start_color();              //TODO: remove
-    init_pair(1, COLOR_WHITE, COLOR_BLACK);
-    init_pair(2, COLOR_RED, COLOR_BLACK);
+    //TODO: dynamically obtain console size
 
-    getmaxyx(stdscr, maxY, maxX);
+    short int cells[ CELLROW * CELLCOL ] ;
+    short int cellBuffer[ CELLROW * CELLCOL ] ;
 
-    int currentCells[CELLROW][CELLCOL];    /* limit size for now */
-    int previousCells[CELLROW][CELLCOL];
+    initializeField( cells ) ;
 
-    initializeCells(CELLROW, CELLCOL, currentCells);    /* randomize starting field */ 
-
-    for (size_t y = 0; y < CELLROW; y++) {              /* zero out cell buffer */
-        for (size_t x = 0; x < CELLCOL; x++) {
-            previousCells[y][x] = OFF;
+    /*
+    for( int row = 0; row < CELLROW; row++ ) {
+        for( int col = 0; col < CELLCOL; col++ ) {
+            cellBuffer[ row * col ] = OFF ;
         }
     }
+    */
 
-    printCells(CELLROW, CELLCOL, previousCells, currentCells, stdscr);          /* print starting field */
+    printField( cells ) ;
 
-/*    while(1) {                                                                  /* main automaton loop *//*
-        getch();
-        updateCells(CELLROW, CELLCOL, previousCells, currentCells);
-        printCells(CELLROW, CELLCOL, previousCells, currentCells, stdscr);
-        refresh();
-    }*/
+    getch() ;
 
-    getch();
+    endwin() ;
 
-    endwin();
-
-    return 0;
+    return 0 ;
 
 }
