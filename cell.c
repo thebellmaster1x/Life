@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define CELLROW 25
-#define CELLCOL 80
+#define ROWMAX 25
+#define COLMAX 80
 
 #define OFF 0
 #define ON 1
@@ -12,11 +12,11 @@
 
 void initializeField( short int *cells ) {
 
-    srand( time(0) ) ;
+    srand( time( 0 ) ) ;
 
-    for( int row = 0; row < CELLROW; row++ ) {
-        for( int col = 0; col < CELLCOL; col++ ) {
-            cells[ row * col ] = ( rand() % FIELDDENSITY == 0 ) ? ON : OFF ;
+    for( int row = 0; row < ROWMAX; row++ ) {
+        for( int col = 0; col < COLMAX; col++ ) {
+            cells[ row * COLMAX + col ] = ( rand() % FIELDDENSITY == 0 ) ? ON : OFF ;
         }
     }
 
@@ -24,9 +24,17 @@ void initializeField( short int *cells ) {
 
 void printField( short int *cells ) {
 
-    for( int row = 0; row < CELLROW; row++ ) {
-        for( int col = 0; col < CELLCOL; col++ ) {
-            if( cells[ row * col ] == ON ) {
+    // clear field
+    for( int row = 0; row < ROWMAX; row++ ) {
+        for( int col = 0; col < COLMAX; col++ ) {
+                mvaddch( row, col, ' ' ) ;
+            }
+        }
+
+    // print if cell is on
+    for( int row = 0; row < ROWMAX; row++ ) {
+        for( int col = 0; col < COLMAX; col++ ) {
+            if( cells[ row * COLMAX + col ] == ON ) {
                 mvaddch( row, col, '#' | COLOR_PAIR(2) ) ;
             }
         }
