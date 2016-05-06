@@ -22,7 +22,7 @@ void initializeField( short int *cells ) {
 
 }
 
-int neighbors( short int *cells, int row, int col ) {
+int countNeighbors( short int *cells, int row, int col ) {
 
     int neighbors ;
 
@@ -82,6 +82,8 @@ int neighbors( short int *cells, int row, int col ) {
 
 void printField( short int *cells ) {
 
+    int neighbors ;
+
     // clear field
     for( int row = 0; row < ROWMAX; row++ ) {
         for( int col = 0; col < COLMAX; col++ ) {
@@ -92,12 +94,50 @@ void printField( short int *cells ) {
     // print if cell is on
     for( int row = 0; row < ROWMAX; row++ ) {
         for( int col = 0; col < COLMAX; col++ ) {
+
+            neighbors = countNeighbors( cells, row, col ) ;
+
             if( cells[ row * COLMAX + col ] == ON ) {
-                mvaddch( row, col, neighbors( cells, row, col ) + '0' | COLOR_PAIR(2) ) ;
+                mvaddch( row, col, neighbors + '0' | COLOR_PAIR(2) ) ;
+            } else {
+                mvaddch( row, col, neighbors + '0' | COLOR_PAIR(1) ) ;
             }
+
         }
     }
 
     refresh() ;
+
+}
+
+void updateField( short int *cells, short int *cellBuffer ) {
+
+    int neighbors ;
+    int row, col ;
+
+    // copy current field into cell buffer
+    for( row = 0; row < ROWMAX; row++ ) {
+        for( col = 0; col < COLMAX; col++ ) {
+            cellBuffer[ row * COLMAX + col ] = cells[ row * COLMAX + col ] ;
+        }
+    }
+
+    for( row = 0; row < ROWMAX; row++ ) {
+        for( col = 0; col < COLMAX; col++ ) {
+
+            neighbors = countNeighbors( cellBuffer, row, col ) ;
+
+            if( cellBuffer[ row * COLMAX + col ] == ON ) {
+                // survival conditions
+                cells[ row * COLMAX + col ] = (neighbors == 2 || neighbors == 3) ? ON : OFF ;
+            }/* else {
+                // birth conditions
+                cells[ row * COLMAX + col ] = (neighbors == 3) ? ON : OFF ;
+            }*/
+
+        }
+    }
+
+    getch();
 
 }

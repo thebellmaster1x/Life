@@ -38,9 +38,9 @@ int main ( void ) {
 
         printField( cells ) ;
 
-        getch() ;
+        updateField( cells, cellBuffer ) ;
 
-        initializeField ( cells ) ;
+        getch() ;
 
     }
 
