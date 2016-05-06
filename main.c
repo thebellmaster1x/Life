@@ -21,22 +21,22 @@ int main ( void ) {
 
     //TODO: dynamically obtain console size
 
-    short int cells[ ROWMAX * COLMAX ] ;
-    short int cellBuffer[ ROWMAX * COLMAX ] ;
+    int cells[ ROWMAX * COLMAX ] ;
+    int cellBuffer[ ROWMAX * COLMAX ] ;
 
+    // set starting field
     initializeField( cells ) ;
 
-    /*
+    // zero cell buffer
     for( int row = 0; row < ROWMAX; row++ ) {
         for( int col = 0; col < COLMAX; col++ ) {
             cellBuffer[ row * COLMAX + col ] = OFF ;
         }
     }
-    */
 
     while(1) {
 
-        printField( cells ) ;
+        printField( cells, cellBuffer ) ;
 
         updateField( cells, cellBuffer ) ;
 

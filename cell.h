@@ -1,4 +1,4 @@
-void initializeField( short int *cells ) ;
-int countNeighbors( short int *cells, int row, int col ) ;
-void printField( short int *cells ) ;
-void updateField( short int *cells, short int *cellBuffer ) ;
+void initializeField( int *cells ) ;
+int countNeighbors( int *cells, int row, int col ) ;
+void printField( int *cells, int *cellBuffer ) ;
+void updateField( int *cells, int *cellBuffer ) ;

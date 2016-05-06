@@ -10,7 +10,7 @@
 
 #define FIELDDENSITY 8
 
-void initializeField( short int *cells ) {
+void initializeField( int *cells ) {
 
     srand( time( 0 ) ) ;
 
@@ -22,9 +22,9 @@ void initializeField( short int *cells ) {
 
 }
 
-int countNeighbors( short int *cells, int row, int col ) {
+int countNeighbors( int *cells, int row, int col ) {
 
-    int neighbors ;
+    int neighbors = 0 ;
 
     for( int rowMod = -1; rowMod <=1; rowMod++ ) {
         for( int colMod = -1; colMod <=1; colMod++ ) {
@@ -80,9 +80,9 @@ int countNeighbors( short int *cells, int row, int col ) {
 
 }
 
-void printField( short int *cells ) {
+void printField( int *cells ) {
 
-    int neighbors ;
+    int neighbors = 0 ;
 
     // clear field
     for( int row = 0; row < ROWMAX; row++ ) {
@@ -110,34 +110,31 @@ void printField( short int *cells ) {
 
 }
 
-void updateField( short int *cells, short int *cellBuffer ) {
+void updateField( int *cells, int *cellBuffer ) {
 
-    int neighbors ;
-    int row, col ;
+    int neighbors = 0 ;
 
     // copy current field into cell buffer
-    for( row = 0; row < ROWMAX; row++ ) {
-        for( col = 0; col < COLMAX; col++ ) {
+    for( int row = 0; row < ROWMAX; row++ ) {
+        for( int col = 0; col < COLMAX; col++ ) {
             cellBuffer[ row * COLMAX + col ] = cells[ row * COLMAX + col ] ;
         }
     }
 
-    for( row = 0; row < ROWMAX; row++ ) {
-        for( col = 0; col < COLMAX; col++ ) {
+    for( int row = 0; row < ROWMAX; row++ ) {
+        for( int col = 0; col < COLMAX; col++ ) {
 
             neighbors = countNeighbors( cellBuffer, row, col ) ;
 
             if( cellBuffer[ row * COLMAX + col ] == ON ) {
                 // survival conditions
                 cells[ row * COLMAX + col ] = (neighbors == 2 || neighbors == 3) ? ON : OFF ;
-            }/* else {
+            } else {
                 // birth conditions
                 cells[ row * COLMAX + col ] = (neighbors == 3) ? ON : OFF ;
-            }*/
+            }
 
         }
     }
-
-    getch();
 
 }
