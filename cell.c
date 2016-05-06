@@ -98,9 +98,7 @@ void printField( int *cells ) {
             neighbors = countNeighbors( cells, row, col ) ;
 
             if( cells[ row * COLMAX + col ] == ON ) {
-                mvaddch( row, col, neighbors + '0' | COLOR_PAIR(2) ) ;
-            } else {
-                mvaddch( row, col, neighbors + '0' | COLOR_PAIR(1) ) ;
+                mvaddch( row, col, '*' | COLOR_PAIR(2) ) ;
             }
 
         }
